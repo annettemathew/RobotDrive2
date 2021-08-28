@@ -27,9 +27,14 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
   double leftStick = driverStick->GetRawAxis(1);
   double rightStick = driverStick->GetRawAxis(4);
-  lMotor->Set(leftStick + rightStick);
-  rMotor->Set(leftStick - rightStick);
-
+  if(abs(leftStick) <= 0.2 || abs(rightStick) <= 0.2) {
+    lMotor->Set(0);
+    rMotor->Set(0);
+  } else {
+    lMotor->Set(leftStick + rightStick);
+    rMotor->Set(leftStick - rightStick);  
+  }
+  
   
 }
 
